@@ -71,7 +71,7 @@ async function main() {
   const GOVERNANCE_CONTRACT = new ethers.Contract(GOVERNANCE_ADDRESS, GOVERNANCE_ABI, signer);
   const proposal_count = await GOVERNANCE_CONTRACT.proposalCount();
   const quorumVotes = await GOVERNANCE_CONTRACT.quorumVotes();
-  for (i = proposal_count; i > 0; i--) {
+  for (let i = proposal_count * 1; i > 0; i--) {
     const proposal = await GOVERNANCE_CONTRACT.proposals(i)
     const duration = (proposal.votingPeriod / 60 / 60).toFixed(4);
     const startDate = new Date(proposal.startTime * 1000).toLocaleString();
