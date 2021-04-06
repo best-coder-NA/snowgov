@@ -164,10 +164,10 @@ async function main() {
     console.log("i", i);
     $(`#proposal_${i}_for`).click(function(){
       console.log("iclick", i);
-      governanceContract_voteFor(GOVERNANCE_ABI, GOVERNANCE_ADDRESS, i, App)
+      governanceContract_voteFor(GOVERNANCE_ABI, GOVERNANCE_ADDRESS, i, App, CRYSTAL_CONTRACT)
     });
     $(`#proposal_${i}_against`).click(function(){
-      governanceContract_voteAgainst(GOVERNANCE_ABI, GOVERNANCE_ADDRESS, i, App)
+      governanceContract_voteAgainst(GOVERNANCE_ABI, GOVERNANCE_ADDRESS, i, App, CRYSTAL_CONTRACT)
     });
   }
 
@@ -189,10 +189,10 @@ async function main() {
   // Max
   // TODO fix decimals bug
   $("#snob_max").click(function(){
-    $("#snob_input").val(currentSNOBTokens / 1e18)
+    $("#snob_input").val((currentSNOBTokens / 1e18).toLocaleString())
   })
   $("#pgl_max").click(function(){
-    $("#pgl_input").val(currentPGLTokens / 1e18)
+    $("#pgl_input").val((currentPGLTokens / 1e18).toLocaleString())
   })
 
   //
@@ -373,11 +373,12 @@ const crystalVaultContract_withdraw = async function (chefAbi, chefAddress, App)
   }
 }
 
-const governanceContract_voteFor = async function (chefAbi, chefAddress, proposal_id, App) {
+const governanceContract_voteFor = async function (chefAbi, chefAddress, proposal_id, App, crystalContract) {
   const signer = App.provider.getSigner()
   console.log(signer)
 
   const CHEF_CONTRACT = new ethers.Contract(chefAddress, chefAbi, signer)
+  const qVotes = await crystalContract.quadraticVotes(App.YOUR_ADDRESS);
 
   // //balance
   // const votes = await CHEF_CONTRACT.votes(App.YOUR_ADDRESS)
@@ -385,7 +386,7 @@ const governanceContract_voteFor = async function (chefAbi, chefAddress, proposa
   let allow = Promise.resolve()
 
   showLoading()
-  if (1 == 0) {
+  if (qVotes == 0) {
     alert('No votes to use')
     hideLoading();
   } else {
@@ -410,11 +411,12 @@ const governanceContract_voteFor = async function (chefAbi, chefAddress, proposa
   }
 }
 
-const governanceContract_voteAgainst = async function (chefAbi, chefAddress, proposal_id, App) {
+const governanceContract_voteAgainst = async function (chefAbi, chefAddress, proposal_id, App, crystalContract) {
   const signer = App.provider.getSigner()
   console.log(signer)
 
   const CHEF_CONTRACT = new ethers.Contract(chefAddress, chefAbi, signer)
+  const qVotes = await crystalContract.quadraticVotes(App.YOUR_ADDRESS);
 
   // //balance
   // const votes = await CHEF_CONTRACT.votes(App.YOUR_ADDRESS)
@@ -422,7 +424,7 @@ const governanceContract_voteAgainst = async function (chefAbi, chefAddress, pro
   let allow = Promise.resolve()
 
   showLoading()
-  if (1 == 0) {
+  if (qVotes == 0) {
     alert('No votes to use')
     hideLoading();
   } else {

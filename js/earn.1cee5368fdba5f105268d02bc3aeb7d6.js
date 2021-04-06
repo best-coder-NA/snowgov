@@ -812,7 +812,7 @@ async function main() {
                         ${poolSize}
                 </div>
                 <div class="col-sm-12 col-md-2 align-items-center text-center text-md-right snob-tvl pb-10 pb-md-0 mx-auto">
-                    <a href="/snowglobes" class="btn btn-primary btn-sm"><ion-icon name="link-outline"></ion-icon> Get sPGL from Snowglobes</a>
+                    <a href="/compound" class="btn btn-primary btn-sm"><ion-icon name="link-outline"></ion-icon> Get sPGL from Snowglobes</a>
                 </div>
 
                 <div onclick="toggleDetails('${options.pool_nickname}');" class="col-sm-12 col-md-1 align-items-center text-center text-md-right snob-tvl pb-10 pb-md-0 mx-auto">
@@ -1097,7 +1097,7 @@ async function main() {
     }
     if ( !has_options ) {
       //_print(`No sPGL to Stake/Withdraw.`)
-      //_print(`<a href="/snowglobes">Get sPGL from Snowglobes</a>`)
+      //_print(`<a href="/compound">Get sPGL from Snowglobes</a>`)
     }
 
     if( !has_options ){
@@ -1431,7 +1431,7 @@ async function main() {
     }
     if ( !has_options ) {
       //_print(`No sPGL to Stake/Withdraw.`)
-      //_print(`<a href="/snowglobes">Get sPGL from Snowglobes</a>`)
+      //_print(`<a href="/compound">Get sPGL from Snowglobes</a>`)
     }
     if (!has_options){
 
